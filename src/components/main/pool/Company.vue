@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     getItems: function(){
-      this.$http.post(`http://10.112.120.61:8000/ResourcePool/check`).then(
+      this.$http.post(`http://localhost:8000/ResourcePool/check`).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {

@@ -73,7 +73,7 @@ export default {
         title: this.$store.state.pagename[this.$store.state.page],
         record: this.RecordName
       };
-      this.$http.post(`http://10.112.120.61:8000/ResourcePool/findByGroup`, data).then(
+      this.$http.post(`http://localhost:8000/ResourcePool/findByGroup`, data).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {
@@ -132,7 +132,7 @@ export default {
       var data = {
         title: this.$store.state.pagename[this.$store.state.page]
       };
-      this.$http.post(`http://10.112.120.61:8000/ResourcePool/findContent`, data).then(
+      this.$http.post(`http://localhost:8000/ResourcePool/findContent`, data).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {
@@ -148,7 +148,7 @@ export default {
       var data = {
         title: this.$store.state.pagename[this.$store.state.page]
       };
-      this.$http.post(`http://10.112.120.61:8000/ResourcePool/findAreaInformation`, data).then(
+      this.$http.post(`http://localhost:8000/ResourcePool/findAreaInformation`, data).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {

@@ -143,7 +143,7 @@ export default {
         title: this.Title,
         content:this.items
       };
-      this.$http.post(`http://10.112.120.61:8000/ResourcePool/create_database`, data).then(
+      this.$http.post(`http://localhost:8000/ResourcePool/create_database`, data).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {
@@ -187,7 +187,7 @@ export default {
         ak:this.source,
         sk:this.dest
       };
-      this.$http.post(`http://10.112.120.61:8000/ResourcePool/map`, data).then(
+      this.$http.post(`http://localhost:8000/ResourcePool/map`, data).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {

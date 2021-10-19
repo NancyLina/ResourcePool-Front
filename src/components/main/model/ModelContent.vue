@@ -2,7 +2,7 @@
 <div class="content-wrapper">
   <section class="content">
     <div class="row">
-      <div class="col-xs-4">
+      <!-- <div class="col-xs-4">
         <div class="box">
           <div class="box-header">
             <h3 class="box-title">
@@ -41,10 +41,10 @@
               </div>
             </div>
           </section>
-
+          -->
 
             <!-- form start -->
-            <form role="form">
+            <!-- <form role="form">
               <div class="box-footer" style="text-align:center">
                 <button class="btn btn-primary" @click="submits">查询</button>
                 <button class="btn btn-default" @click="add_infor">添加</button>
@@ -52,9 +52,9 @@
             </form>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="createLabel">
+      <!-- <div class="modal fade" id="create" tabindex="-1" role="dialog" aria-labelledby="createLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content" style="width: 400px;margin:0 auto">
             <div class="modal-header">
@@ -79,10 +79,10 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
-      <div class="col-xs-8">
+      <div class="col-xs-12">
       <div class="box" style="min-height:350px">
         <div class="box-header">
           <h3 class="box-title">
@@ -98,7 +98,7 @@
               <div class="col-xs-12">
                 <div class="box">
                   <div class="box-body table-responsive">
-                    <table class="table table-bordered table-striped" >
+                    <!-- <table class="table table-bordered table-striped" >
                       <tbody>
                         <tr style="overflow:hidden;word-break:keep-all">
                           <td v-for="(item,index) in this.$store.state.result_name" :key="index">{{item}}</td>
@@ -107,7 +107,47 @@
                           <td v-for="(i,index) in item" :key="index">{{i}}</td>
                         </tr>
                       </tbody>
-                    </table>
+                    </table> -->
+                     <el-table
+                     :data="pageList.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+                      style="width: 100%">
+                      <el-table-column 
+                        width="60px"
+                        label="ID"
+                        prop="id">
+                      </el-table-column>
+                      <el-table-column v-for="(item,index) in this.$store.state.tableTitle" :key="index"
+                        :label="item.label"
+                        :prop="item.val">
+                      </el-table-column>
+                      <el-table-column
+                        align="right">
+                        <template slot="header" slot-scope="{}">
+                          <el-input
+                            v-model="search"
+                            size="mini"
+                            placeholder="输入名称搜索"/>
+                        </template>
+                        <template slot-scope="scope">
+                          <el-button
+                            size="mini"
+                            @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+                          <el-button
+                            size="mini"
+                            type="danger"
+                            @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+                        </template>
+                      </el-table-column>
+                    </el-table>
+                  </div>
+                  <div class="block">
+                    <el-pagination
+                      @current-change="handleCurrentChange"
+                      layout="total, prev, pager, next, jumper"
+                      :page-size="10"
+                      :current-page="currentPage"
+                      :total="this.$store.state.tableData.length">
+                    </el-pagination>
                   </div>
                   <common-alert :show="show" :error="error" :info="info"></common-alert>
                 </div>
@@ -115,15 +155,9 @@
             </div>
           </section>
           </div>
-
         </div>
       </div>
     </div>
-
-
-
-
-
     </div>
     <common-alert :show="show" :error="error" :info="info"></common-alert>
   </section>
@@ -143,21 +177,55 @@ export default {
   },
   data() {
     return {
+      search: '',
       items: [],
       RecordName: "",
       RecordType: "",
       show: false,
-      records: []
+      records: [],
+      currentPage: 1,
+      pageSize: 10,
+      pageList:[],
+      tableTitle:[],
+      tableData:[],
     };
   },
+  // created(){
+  //   this.currentChangePage(this.$store.state.tableData,1);
+  // },
+  beforeUpdate(){
+    this.currentChangePage(this.$store.state.tableData,this.currentPage);
+  },
+  
   methods: {
+    handleCurrentChange: function(currentPage) {//页码切换
+        this.currentPage = currentPage
+    },
+    //分页方法（重点）
+   currentChangePage(list, currentPage) {
+     console.log(list)
+      let from = (currentPage - 1) * this.pageSize;
+      let to = currentPage * this.pageSize;
+      this.pageList = [];
+      for (; from < to; from++) {
+        if (list[from]) {
+          this.pageList.push(list[from]);
+        }
+      }
+   },
+    handleEdit(index, row) {
+        console.log(index, row);
+      },
+    handleDelete(index, row) {
+      console.log(index, row);
+    },
     add_infor: function(){
       var data = {
         type: this.$store.state.page,
         title: this.$store.state.pagename[this.$store.state.page],
         content: this.items
       };
-      this.$http.post(`http://10.112.120.61:8000/ResourcePool/add_infor`, data).then(
+      this.$http.post(`http://localhost:8000/ResourcePool/add_infor`, data).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {
@@ -196,7 +264,7 @@ export default {
         title: this.$store.state.pagename[this.$store.state.page],
         content: this.items
       };
-      this.$http.post(`http://10.112.120.61:8000/ResourcePool/findBySth`, data).then(
+      this.$http.post(`http://localhost:8000/ResourcePool/findBySth`, data).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {
@@ -212,7 +280,7 @@ export default {
       var data = {
         title: this.$store.state.pagename[this.$store.state.page]
       };
-      this.$http.post(`http://10.112.120.61:8000/ResourcePool/findContent`, data).then(
+      this.$http.post(`http://localhost:8000/ResourcePool/findContent`, data).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {
@@ -252,5 +320,9 @@ export default {
 .btn-label {
   margin-top: 5px;
   margin-right: 5px;
+}
+.block{
+  text-align: right;
+  margin-top: 10px;
 }
 </style>

@@ -84,7 +84,7 @@ export default {
   },
   methods: {
     getConn: function(){
-        this.$http.post(`http://10.112.120.61:8000/ResourcePool/GetConnection`).then(
+        this.$http.post(`http://localhost:8000/ResourcePool/GetConnection`).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {
@@ -98,7 +98,7 @@ export default {
       );
     },
     create: function() {
-      this.$http.post(`http://10.112.120.61:8000/ResourcePool/AddConnection`).then(
+      this.$http.post(`http://localhost:8000/ResourcePool/AddConnection`).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {
@@ -114,7 +114,7 @@ export default {
         var data = {
             index: index
         };
-        this.$http.post(`http://10.112.120.61:8000/ResourcePool/DeleteConnection`, data).then(
+        this.$http.post(`http://localhost:8000/ResourcePool/DeleteConnection`, data).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {
@@ -147,7 +147,7 @@ export default {
         var data = {
             index: index
         };
-        this.$http.post(`http://10.112.120.61:8000/ResourcePool/use`, data).then(
+        this.$http.post(`http://localhost:8000/ResourcePool/use`, data).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {
@@ -180,7 +180,7 @@ export default {
         var data = {
             index: index
         };
-        this.$http.post(`http://10.112.120.61:8000/ResourcePool/unuse`, data).then(
+        this.$http.post(`http://localhost:8000/ResourcePool/unuse`, data).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {

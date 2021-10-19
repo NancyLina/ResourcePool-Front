@@ -150,7 +150,7 @@ export default {
   },
   methods: {
     init: function() {
-      this.$http.post(`http://10.112.120.61:8000/ResourcePool/init`).then(
+      this.$http.post(`http://localhost:8000/ResourcePool/init`).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {
@@ -180,7 +180,7 @@ export default {
         choose1: this.choose1,
         choose2: this.platform2
       };
-      this.$http.post(`http://10.112.120.61:8000/ResourcePool/changePlatform`,data).then(
+      this.$http.post(`http://localhost:8000/ResourcePool/changePlatform`,data).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {
@@ -213,7 +213,7 @@ export default {
         choose1: this.platform1,
         choose2: this.choose2
       };
-      this.$http.post(`http://10.112.120.61:8000/ResourcePool/changePlatform`,data).then(
+      this.$http.post(`http://localhost:8000/ResourcePool/changePlatform`,data).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {

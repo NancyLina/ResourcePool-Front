@@ -120,26 +120,27 @@ export default {
       if(this.$store.state.canUse<=0){
         // alert("尚未获得连接，请获取连接后使用");
       }
+      this.$store.state.page=index;
       var data = {
         type: index,
         title: this.$store.state.pagename[this.$store.state.page]
       };
-      this.$http.post(`http://10.112.120.61:8000/ResourcePool/find_init`, data).then(
+      this.$http.post(`http://localhost:8000/ResourcePool/table_data`, data).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {
-            this.$store.state.result_name=body.name;
-            this.$store.state.result_infor=body.infor;
+            this.$store.state.tableTitle=body.title;
+            this.$store.state.tableData=body.data;
+            // console.log(this.$store.state.tableData[0])
           }
         },
         response => {
           console.log("error");
         }
       );
-      this.$store.state.page=index;
     },
     inits: function(){
-      this.$http.post(`http://10.112.120.61:8000/ResourcePool/take_tables`).then(
+      this.$http.post(`http://localhost:8000/ResourcePool/take_tables`).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {

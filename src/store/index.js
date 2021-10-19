@@ -12,6 +12,8 @@ export default new Vuex.Store({
         pagename:[],
         result_name: [],
         result_infor: [],
+        tableTitle:[],
+        tableData:[],
         loginStatus: Boolean(sessionStorage.getItem('loginStatus')) || false,
         basicUrl: 'http://127.0.0.1:3000',
         getAllTechUrl: 'http://192.168.1.118:8080/database/neo4j/findTechnologyAll', // 获取所有技术标签（扁平化）

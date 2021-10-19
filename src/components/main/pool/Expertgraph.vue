@@ -61,7 +61,7 @@ export default {
             type:type
         };
 
-        this.$http.post(`http://10.112.120.61:8000/ResourcePool/write`, data).then(
+        this.$http.post(`http://localhost:8000/ResourcePool/write`, data).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {

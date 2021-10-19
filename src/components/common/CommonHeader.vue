@@ -43,7 +43,7 @@ export default {
       const data = {
         title: this.$store.state.pagename[this.$store.state.page]
       };
-      this.$http.post(`http://10.112.120.61:8000/ResourcePool/delete_database`, data).then(
+      this.$http.post(`http://localhost:8000/ResourcePool/delete_database`, data).then(
         response => {
           const { status, ok, body } = response;
           if (status === 200 && ok) {
